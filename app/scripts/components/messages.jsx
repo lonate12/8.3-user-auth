@@ -56,10 +56,11 @@ var MessageContainer = React.createClass({
     }
   },
   sendMessage: function(message){
+    var user = localStorage.getItem('user');
     this.state.messageCollection.create({
       message: message,
       username: localStorage.getItem('username'),
-      user: localStorage.getItem('user')
+      user: {__type: "Pointer", className: "_User", objectId: user}
     });
   },
   componentWillMount: function(){

@@ -5,9 +5,11 @@ var User = Backbone.Model.extend({
   idAttribute: 'objectId',
   urlRoot: 'https://zugzwang.herokuapp.com/users',
   setLocalStorage: function(response){
+    var JSONResponse = JSON.stringify(response);
     localStorage.setItem('sessionToken', response.sessionToken);
     localStorage.setItem('username', response.username);
     localStorage.setItem('user', response.objectId);
+    localStorage.setItem('currentUser', JSONResponse);
   },
   setHeader: function(response){
     $.ajaxSetup({
