@@ -59,7 +59,7 @@ var MessageContainer = React.createClass({
     this.state.messageCollection.create({
       message: message,
       username: localStorage.getItem('username'),
-      user: localStorage.getItem('username')
+      user: localStorage.getItem('user')
     });
   },
   componentWillMount: function(){
