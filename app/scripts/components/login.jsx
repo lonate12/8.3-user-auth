@@ -1,5 +1,6 @@
 var React = require('react');
 var User = require('../models/user.js').User;
+var Backbone = require('backbone');
 
 var SignUpForm = React.createClass({
   getInitialState: function(){
@@ -94,10 +95,14 @@ var UserAccessContainer = React.createClass({
     };
   },
   login: function(username, password){
-    this.state.user.login(username, password);
+    this.state.user.login(username, password, function(){
+      Backbone.history.navigate('messages/', {trigger: true});
+    });
   },
   signUp: function(username, password){
-    this.state.user.signUp(username, password);
+    this.state.user.signUp(username, password, function(){
+      Backbone.history.navigate('messages/', {trigger: true});
+    });
   },
   render: function(){
     return(

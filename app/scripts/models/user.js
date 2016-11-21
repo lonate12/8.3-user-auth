@@ -20,20 +20,22 @@ var User = Backbone.Model.extend({
       }
     });
   },
-  signUp: function(username, password){
+  signUp: function(username, password, callback){
     var newUserInput = {username: username, password: password};
     var self = this;
-    console.log(newUserInput);
+
     this.save(newUserInput).then(function(response){
 
-      if(response.sessionToken){
+      if (response.sessionToken){
         self.setLocalStorage(response);
       }
 
       self.setHeader(response);
+
+      callback();
     });
   },
-  login: function(username, password){
+  login: function(username, password, callback){
       var url = 'https://zugzwang.herokuapp.com/login';
       var self = this;
 
@@ -42,7 +44,22 @@ var User = Backbone.Model.extend({
         self.setLocalStorage(response);
 
         self.setHeader(response);
+
+        callback();
       });
+  }
+},{
+  logout: function(){
+    $.post('https://zugzwang.herokuapp.com/logout/').then(function(){
+      localStorage.clear();
+      $.ajaxSetup({
+        beforeSend: function(xhr){
+          xhr.setRequestHeader("X-Parse-Application-Id", "zugzwang");
+          xhr.setRequestHeader("X-Parse-REST-API-Key", "tosche station");
+        }
+      });
+      Backbone.history.navigate('', {trigger:true});
+    });
   }
 });
 

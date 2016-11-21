@@ -6,7 +6,10 @@ var Message = Backbone.Model.extend({
 
 var MessageCollection = Backbone.Collection.extend({
   model: Message,
-  url: 'https://zugzwang.herokuapp.com/classes/Messages'
+  url: 'https://zugzwang.herokuapp.com/classes/Messages',
+  parse: function(data){
+    return data.results;
+  }
 });
 
 module.exports = {
